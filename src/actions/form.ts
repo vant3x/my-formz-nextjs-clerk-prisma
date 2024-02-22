@@ -1,10 +1,12 @@
 "use server";
 
+import prisma from "@/lib/prisma";
+
 import { currentUser } from "@clerk/nextjs";
 
 class UserNotFoundError extends Error {}
 
-export async function GetFoemStats ()  {
+export async function GetFormStats ()  {
     const user = await currentUser();
     if (!user) {
         throw new UserNotFoundError();

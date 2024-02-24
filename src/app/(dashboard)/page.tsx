@@ -1,4 +1,5 @@
 import CardStatsWrapper from "@/components/CardStatsWrapper";
+import CreateFormBtn from "@/components/CreateForms/CreateFormBtn";
 import StatsCards from "@/components/StatsCard";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
@@ -15,6 +16,7 @@ export default function Home() {
                 <Separator className="my-6" />
                 <h2>Yours forms</h2>
                 <Separator className="my-6" />
+                <CreateFormBtn/>
             </div>
         )
 }

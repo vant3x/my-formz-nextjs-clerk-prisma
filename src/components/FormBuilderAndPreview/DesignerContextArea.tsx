@@ -6,16 +6,18 @@ import DesignerSidebarControl from "./DesignerSidebarControl";
 import { cn } from "@/lib/utils";
 import { FormElementInstance } from "./FormBuilder/FormElements";
 import { useState } from "react";
+import useDesigner from "@/hooks/useDesigner";
 
 export default function Designer() {
 
-    const [elements, setElements] = useState<FormElementInstance[]>([]);
+    const {elements, addElements} = useDesigner();
     const droppable = useDroppable({
         id: "design-drop-area",
         data: {
             isDesignerDropArea: true,
         }
-    })
+    });
+    
 
     return (
         <div className="flex w-full h-full">

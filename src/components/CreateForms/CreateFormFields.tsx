@@ -20,9 +20,11 @@ import { ImSpinner2 } from "react-icons/im";
 import { toast } from "../ui/use-toast";
 import { formSchema, formSchemaType } from "@/schemas/form";
 import { CreateForm } from "@/actions/form";
-
+import { useRouter  } from "next/navigation";
 
 export default function CreateFormFields() {
+
+  const router = useRouter();
 
   const [disabledButton, setDisabledButton] = useState(false);
 
@@ -30,15 +32,15 @@ export default function CreateFormFields() {
     resolver: zodResolver(formSchema),
   });
 
-  const disabledButtonAct = () => {
+ const disabledButtonAct = () => {
     setTimeout(() => {
         setDisabledButton(false);
     }, 4000);
   }
 
   async function onSubmit(values: formSchemaType) {
-    setDisabledButton(true);
-    disabledButtonAct();
+  setDisabledButton(true);
+  disabledButtonAct();
     try {
       if (!disabledButton) {
         const formId = await CreateForm(values);
@@ -49,6 +51,7 @@ export default function CreateFormFields() {
           description: "Form created successfully",
       });
       console.log("FORM ID", formId);
+      router.push(`/builder/${formId}`);
       }
 
     } catch (error) {

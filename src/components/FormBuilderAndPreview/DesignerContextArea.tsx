@@ -1,12 +1,14 @@
 "use client";
 
-import { useDroppable } from "@dnd-kit/core";
+import { DragEndEvent, useDndMonitor, useDroppable } from "@dnd-kit/core";
 
 import DesignerSidebarControl from "./DesignerSidebarControl";
 import { cn } from "@/lib/utils";
-import { FormElementInstance } from "./FormBuilder/FormElements";
+import { ElementsType, FormElementInstance, FormElements } from "./FormBuilder/FormElements";
 import { useState } from "react";
 import useDesigner from "@/hooks/useDesigner";
+import { idGenerator } from "@/lib/idGenerator";
+import DesignerElementWrapper from "./Designer/DesignerElementWrapper";
 
 export default function Designer() {
 
@@ -18,6 +20,22 @@ export default function Designer() {
         }
     });
     
+    useDndMonitor({
+        onDragEnd: (event: DragEndEvent) => {
+            const { active, over } = event;
+
+            if (!active || !over) return;
+
+            const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
+
+            if (isDesignerBtnElement) {
+                const type = active.data?.current?.type;
+                const newElement = FormElements[type as ElementsType].construct(idGenerator());
+
+                addElements(0, newElement);
+            }
+        },
+    }) 
 
     return (
         <div className="flex w-full h-full">
@@ -36,6 +54,15 @@ export default function Designer() {
                                 <div className="h-[120px] rounded-md bg-primary/20"></div>
                             </div>
                         )}
+                        {
+                            elements.length > 0 && (
+                                <div className="flex flex-col text-background w-full gap-2 p-4">
+                                    {elements.map(element => (
+                                        <DesignerElementWrapper key={element.id} element={element} />
+                                    ))}
+                                </div>
+                            )
+                        }
                     </div>    
             </div>
             <DesignerSidebarControl/>

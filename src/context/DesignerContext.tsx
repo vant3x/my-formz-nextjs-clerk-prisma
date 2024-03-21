@@ -17,9 +17,9 @@ export default function DesignerContextProvider({
 }) {
   const [elements, setElements] = useState<FormElementInstance[]>([]);
 
-  const addElement = (index: number, element: FormElementInstance) => {
+  const addElements = (index: number, element: FormElementInstance) => {
     setElements((prev) => {
-      const newElements = [...prev];
+      const newElements = [...prev]  ;
       newElements.splice(index, 0, element);
       return newElements;
     });
@@ -28,7 +28,7 @@ export default function DesignerContextProvider({
     <>
       <DesignerContext.Provider value={{ 
         elements, 
-        addElement
+        addElements
         }}>
 
         {children}

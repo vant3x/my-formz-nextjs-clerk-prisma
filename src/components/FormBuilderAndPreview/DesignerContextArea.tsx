@@ -19,6 +19,8 @@ export default function Designer() {
             isDesignerDropArea: true,
         }
     });
+
+    console.log("Elements", elements);
     
     useDndMonitor({
         onDragEnd: (event: DragEndEvent) => {
@@ -55,6 +57,7 @@ export default function Designer() {
                             </div>
                         )}
                         {
+                           
                             elements.length > 0 && (
                                 <div className="flex flex-col text-background w-full gap-2 p-4">
                                     {elements.map(element => (

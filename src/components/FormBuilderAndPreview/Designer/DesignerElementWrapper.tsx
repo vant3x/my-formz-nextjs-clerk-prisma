@@ -1,7 +1,9 @@
-import { FormElementInstance } from "../FormBuilder/FormElements";
+import { FormElementInstance, FormElements } from "../FormBuilder/FormElements";
 
 export default function DesignerElementWrapper({element}: { element: FormElementInstance}) {
+    const DesignerElement = FormElements[element.type].designerComponent;
+
     return (
-        <>Designer Element wrapper</>
+        <><DesignerElement  /></>
     )
 }

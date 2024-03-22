@@ -4,6 +4,6 @@ export default function DesignerElementWrapper({element}: { element: FormElement
     const DesignerElement = FormElements[element.type].designerComponent;
 
     return (
-        <><DesignerElement  /></>
+        <><DesignerElement elementInstance={element} /></>
     )
 }

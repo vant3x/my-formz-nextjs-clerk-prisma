@@ -47,7 +47,7 @@ export default function Designer() {
                 className={cn("bg-background max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto", droppable.isOver && "ring-2 ring-primary/20")}>
                     
                       {
-                        !droppable.isOver && (
+                        !droppable.isOver && elements.length === 0 && (
                             <p className="text-muted-foreground text-3xl flex flex-grow items-center font-bold">Drop here</p>
                         )
                       }

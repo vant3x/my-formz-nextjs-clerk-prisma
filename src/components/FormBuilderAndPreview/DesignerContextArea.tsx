@@ -35,7 +35,7 @@ export default function Designer() {
                 const newElement = FormElements[type as ElementsType].construct(idGenerator());
 
                 addElements(0, newElement);
-            }
+            }   
         },
     }) 
 

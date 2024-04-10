@@ -29,12 +29,44 @@ export default function Designer() {
             if (!active || !over) return;
 
             const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
+            const isDroppingOverDesignerArea = over.data?.current?.isDesignerDropArea;
 
-            if (isDesignerBtnElement) {
+            const droppingSidebarBtnOverDesignerDropArea = isDesignerBtnElement && isDroppingOverDesignerArea;
+            // first scenario
+            if (droppingSidebarBtnOverDesignerDropArea) {
                 const type = active.data?.current?.type;
                 const newElement = FormElements[type as ElementsType].construct(idGenerator());
 
-                addElements(0, newElement);
+                addElements(elements.length, newElement);
+                return;
+            }
+
+            const isDroppingOverDesignerElementTopHalf = over.data?.current?.isTopHalfDesignerElement;
+
+            const isDroppingOverDesignerElementBottomHalf = over.data?.current?.isBottomHalfDesignerElement;
+
+            const isDroppingOverDesignerElement = isDroppingOverDesignerElementTopHalf | isDroppingOverDesignerElementBottomHalf;
+
+            const droppingSidebarBtnOverDesignerElement = isDesignerBtnElement && isDroppingOverDesignerElement;
+
+            // second scenario
+            if (droppingSidebarBtnOverDesignerElement) {
+                const type = active.data?.current?.type;
+                const newElement = FormElements[type as ElementsType].construct(idGenerator());
+
+                const overId = over.data?.current?.elementId;
+
+                const overElementIndex = elements.findIndex(el => el.id === overId);
+                if (overElementIndex === -1) {
+                    throw new Error("element not found");
+                }
+
+                let indexForNewElement = overElementIndex;
+                if (isDroppingOverDesignerElementBottomHalf) {
+                    indexForNewElement = overElementIndex + 1;
+                }
+                addElements(indexForNewElement, newElement);
+                return;
             }
         },
     }) 

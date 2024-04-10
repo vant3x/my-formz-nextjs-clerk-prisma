@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { BiSolidTrash } from "react-icons/bi";
 import useDesigner from "@/hooks/useDesigner";
 
+
 export default function DesignerElementWrapper({
   element,
 }: {
@@ -52,7 +53,7 @@ export default function DesignerElementWrapper({
       {...draggable.listeners}
       {...draggable.attributes}
     
-      className="relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset"
+      className={cn("relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset", element.id === selectedElement?.id && "ring-blue-600")}
       onMouseEnter={() => {
         setMouseIsOver(true);
       }}
@@ -75,7 +76,7 @@ export default function DesignerElementWrapper({
       {
         mouseIsOver && (
             <>
-            <div className="absolute right-0 h-full">
+            <div className="absolute right-0 h-full ">
                 <Button className="flex justify-center h-full border rounded-md bg-red-500" variant={"outline"} onClick={(e) => {
                     e.stopPropagation();
                     removeElement(element.id);
